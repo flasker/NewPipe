@@ -81,6 +81,7 @@ public abstract class BaseListInfoFragment<I extends InfoItem, L extends ListInf
                     try {
                         array = JsonParser.array().from(response.body().string());
                     } catch (Exception e) {
+                        error_happens = true;
                         e.printStackTrace();
                     }
 //                then fectch the channel page then playlists tab
@@ -101,6 +102,7 @@ public abstract class BaseListInfoFragment<I extends InfoItem, L extends ListInf
                     return "Request failed";
                 }
             } catch (IOException e) {
+                error_happens = true;
                 e.printStackTrace();
                 return "IOException occurred: " + e.getMessage();
             }
