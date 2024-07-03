@@ -107,11 +107,13 @@ public final class BookmarkFragment extends BaseLocalListFragment<List<PlaylistL
 
                 } else if (selectedItem instanceof PlaylistRemoteEntity) {
                     final PlaylistRemoteEntity entry = ((PlaylistRemoteEntity) selectedItem);
-                    NavigationHelper.openPlaylistFragment(
-                            fragmentManager,
-                            entry.getServiceId(),
-                            entry.getUrl(),
-                            entry.getName());
+                    NavigationHelper.openChannelFragment(getFM(), 0,
+                            entry.getUrl(), entry.getName());
+//                    NavigationHelper.openPlaylistFragment(
+//                            fragmentManager,
+//                            entry.getServiceId(),
+//                            entry.getUrl(),
+//                            entry.getName());
                 }
             }
 
@@ -224,7 +226,12 @@ public final class BookmarkFragment extends BaseLocalListFragment<List<PlaylistL
             return;
         }
 
-        itemListAdapter.addItems(result);
+        // We should fetch Channels from json server and move new line here to FilterUrlsOnline
+        List<PlaylistLocalItem> result_filtered = new ArrayList<>();
+        PlaylistRemoteEntity entryq = new PlaylistRemoteEntity(0, "haha name", "https://www.youtube.com/RaduMariescuIstodor", "asdasd", "dfsdf", 98L);
+        result_filtered.add(entryq);
+        itemListAdapter.addItems(result_filtered);
+
         if (itemsListState != null) {
             itemsList.getLayoutManager().onRestoreInstanceState(itemsListState);
             itemsListState = null;

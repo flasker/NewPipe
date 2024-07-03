@@ -117,6 +117,7 @@ import org.schabi.newpipe.util.ThemeHelper;
 import org.schabi.newpipe.util.external_communication.KoreUtils;
 import org.schabi.newpipe.util.external_communication.ShareUtils;
 import org.schabi.newpipe.util.PlayButtonHelper;
+import org.schabi.newpipe.util.FilterUrlsOnline;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -452,6 +453,7 @@ public final class VideoDetailFragment
     private void setOnClickListeners() {
         binding.detailTitleRootLayout.setOnClickListener(v -> toggleTitleAndSecondaryControls());
         binding.detailUploaderRootLayout.setOnClickListener(makeOnClickListener(info -> {
+            if (!FilterUrlsOnline.check_uploader(info.getUploaderUrl())) return;
             if (isEmpty(info.getSubChannelUrl())) {
                 if (!isEmpty(info.getUploaderUrl())) {
                     openChannel(info.getUploaderUrl(), info.getUploaderName());

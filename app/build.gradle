@@ -12,12 +12,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        black {
+            storeFile file('/home/black/Codes/islamic_tupe/NewPipe/my-release-key.keystore')
+            storePassword 'lostkid2013'
+            keyAlias 'alias_name'
+            keyPassword 'lostkid2013'
+        }
+    }
     compileSdk 33
     namespace 'org.schabi.newpipe'
 
     defaultConfig {
         applicationId "org.schabi.newpipe"
-        resValue "string", "app_name", "NewPipe"
+        resValue "string", "app_name", "SafePipe"
         minSdk 21
         targetSdk 33
         versionCode 994
@@ -60,6 +68,7 @@ android {
             shrinkResources false // disabled to fix F-Droid's reproducible build
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             archivesBaseName = 'app'
+            signingConfig signingConfigs.black
         }
     }
 

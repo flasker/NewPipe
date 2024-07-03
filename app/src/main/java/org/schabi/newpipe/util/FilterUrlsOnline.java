@@ -64,6 +64,11 @@ public final class FilterUrlsOnline {
         return query;
     }
 
+    public static Boolean check_uploader(String url) {
+        Log.e("check_uploader", "not implemented yet.");
+        return false;
+    }
+
     public static String syncHttpGet(String url) {
             OkHttpClient client = new OkHttpClient();
             final AtomicReference<String> responseData = new AtomicReference<>();

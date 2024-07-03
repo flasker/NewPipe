@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int ITEM_ID_BOOKMARKS = -3;
     private static final int ITEM_ID_DOWNLOADS = -4;
     private static final int ITEM_ID_HISTORY = -5;
+    private static final int ITEM_ID_FILTERED_CHANNELS = -6;
     private static final int ITEM_ID_SETTINGS = 0;
     private static final int ITEM_ID_ABOUT = 1;
 
@@ -205,8 +206,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tabSelected(getMenuItemByTitle(
+                drawerLayoutBinding.navigation.getMenu(), KioskTranslator
+                        .getTranslatedKioskName("Trending", this)
+        ));
+
         drawerLayoutBinding.navigation.setNavigationItemSelectedListener(this::drawerItemSelected);
         setupDrawerHeader();
+    }
+
+    private MenuItem getMenuItemByTitle(Menu menu, String title) {
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            if (item.getTitle().equals(title)) {
+                return item;
+            }
+        }
+        return null; // Item not found
     }
 
     /**
@@ -228,6 +244,11 @@ public class MainActivity extends AppCompatActivity {
                     .setIcon(KioskTranslator.getKioskIcon(ks));
             kioskMenuItemId++;
         }
+
+        drawerLayoutBinding.navigation.getMenu()
+                .add(R.id.menu_tabs_group, ITEM_ID_FILTERED_CHANNELS, ORDER,
+                        R.string.tab_filtered_channels)
+                .setIcon(KioskTranslator.getKioskIcon("Featured"));
 
 //        drawerLayoutBinding.navigation.getMenu()
 //                .add(R.id.menu_tabs_group, ITEM_ID_SUBSCRIPTIONS, ORDER,
@@ -290,6 +311,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void tabSelected(final MenuItem item) throws ExtractionException {
         switch (item.getItemId()) {
+            case ITEM_ID_FILTERED_CHANNELS:
+                NavigationHelper.openBookmarksFragment(getSupportFragmentManager());
+                break;
             case ITEM_ID_SUBSCRIPTIONS:
                 NavigationHelper.openSubscriptionFragment(getSupportFragmentManager());
                 break;
