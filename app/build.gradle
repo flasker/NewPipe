@@ -24,12 +24,12 @@ android {
     namespace 'org.schabi.newpipe'
 
     defaultConfig {
-        applicationId "org.schabi.newpipe"
+        applicationId "org.schabi.safepipe"
         resValue "string", "app_name", "SafePipe"
         minSdk 21
         targetSdk 33
-        versionCode 994
-        versionName "0.25.2"
+        versionCode 995
+        versionName "0.26.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -67,8 +67,20 @@ android {
             minifyEnabled true
             shrinkResources false // disabled to fix F-Droid's reproducible build
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            archivesBaseName = 'app'
+            archivesBaseName = 'SafePipe-${versionName}'
             signingConfig signingConfigs.black
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name == "release") {
+                def versionName = variant.versionName
+                def versionCode = variant.versionCode
+                def appName = "SafePipe"  // Change this to your app's name
+                def newName = "${appName}_${versionName}_.apk"
+                outputFileName = newName
+            }
         }
     }
 
