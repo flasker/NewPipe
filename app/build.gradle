@@ -20,7 +20,7 @@ android {
             keyPassword 'lostkid2013'
         }
     }
-    compileSdk 33
+    compileSdk 34
     namespace 'org.schabi.newpipe'
 
     defaultConfig {
@@ -64,7 +64,7 @@ android {
                 resValue "string", "app_name", "NewPipe " + System.getProperty('packageSuffix')
                 archivesBaseName = 'NewPipe_' + System.getProperty('packageSuffix')
             }
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources false // disabled to fix F-Droid's reproducible build
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             archivesBaseName = 'SafePipe-${versionName}'
